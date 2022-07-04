@@ -1,31 +1,25 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectRecommend } from "../features/movie/movieSlice";
 
-const Recomends = (props) => {
+const Recommends = (props) => {
+    const movies = useSelector(selectRecommend);
+
     return(
         <Container>
-            <h4>Recomended for You</h4>
+            <h4>Recommended for You</h4>
             <Content>
-                <Wrap>
-                    <Link to='/'>
-                        <img src="https://thumbs.dreamstime.com/b/disney-pixar-finding-nemo-character-marlin-famous-movie-35572635.jpg" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to='/'>
-                        <img src="https://thumbs.dreamstime.com/b/bangkok-thailand-june-model-buzz-lightyear-robot-toy-character-form-story-animation-film-cinema-space-ranger-hero-152300684.jpg" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to='/'>
-                    <img src="https://thumbs.dreamstime.com/b/disney-pixar-finding-nemo-character-marlin-famous-movie-35572635.jpg" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to='/'>
-                    <img src="https://thumbs.dreamstime.com/b/bangkok-thailand-june-model-buzz-lightyear-robot-toy-character-form-story-animation-film-cinema-space-ranger-hero-152300684.jpg" alt="" />
-                    </Link>
-                </Wrap>
+                {
+                    movies && movies.map((movie, key) => {
+                        <Wrap key={key}>
+                            {movie.id}
+                            <Link to={'/detail/' + movie.id}>
+                            <img src={movie.cardImg} alt={movie.title} />
+                            </Link>
+                        </Wrap>
+                    })
+                }
             </Content>
         </Container>
     )
@@ -78,7 +72,7 @@ const Wrap = styled.div`
     }
 `;
 
-export default Recomends;
+export default Recommends;
 
 
 

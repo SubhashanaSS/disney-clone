@@ -18,31 +18,34 @@ const Header = (props) => {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      if(user) {
-        setUser(user)
-        history.push('/home')
+      if (user) {
+        setUser(user);
+        history.push("/home");
       }
-    })
+    });
   }, [userName]);
 
   const handleAuth = () => {
     if (!userName) {
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  } else if (userName) {
-      auth.signOut().then(() => {
-        dispatch(setSignOutState())
-        history.push('/')
-      }).catch((err) => alert(err.message))
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          setUser(result.user);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          history.push("/");
+        })
+        .catch((err) => alert(err.message));
     }
   };
-  
+
   const setUser = (user) => {
     dispatch(
       setUserLoginDetails({
@@ -211,7 +214,7 @@ const Login = styled.a`
 `;
 
 const UserImg = styled.img`
-height : 100%
+  height: 100%;
 `;
 
 const DropDown = styled.div`
